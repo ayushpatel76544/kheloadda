@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">Player Registration</div>
+
+<div class="box">
+    <label>Player Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label>Game</label>
+    <select id="game">
+        <option value="FF">Free Fire</option>
+        <option value="BGMI">BGMI</option>
+        <option value="Ludo">Ludo</option>
+    </select>
+
+    <label>Game ID / UID</label>
+    <input type="text" id="gameid" placeholder="Enter your Game ID">
+
+    <label>Mobile Number</label>
+    <input type="text" id="mobile" placeholder="Enter mobile number">
+
+    <button onclick="registerPlayer()">Register</button>
+</div>
+
+<script>
+    function registerPlayer() {
+        let name = document.getElementById("name").value;
+        let game = document.getElementById("game").value;
+        let gameid = document.getElementById("gameid").value;
+        let mobile = document.getElementById("mobile").value;
+
+        if(name && game && gameid && mobile){
+            // Save in localStorage (simple storage for now)
+            let players = JSON.parse(localStorage.getItem("players") || "[]");
+            players.push({name, game, gameid, mobile});
+            localStorage.setItem("players", JSON.stringify(players));
+
+            alert("Registration Successful!");
+            window.location.href = "index.html"; // redirect to homepage
+        } else {
+            alert("Please fill all fields!");
+        }
+    }
+</script>
+
+</body>
+</html>

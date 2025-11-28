@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">Admin Panel</div>
+
+<div class="box">
+    <h2>Add / Update Tournament Room</h2>
+    <label>Game</label>
+    <select id="adminGame">
+        <option value="FF">Free Fire</option>
+        <option value="BGMI">BGMI</option>
+        <option value="Ludo">Ludo</option>
+    </select>
+
+    <label>Room ID</label>
+    <input type="text" id="roomId" placeholder="Enter Room ID">
+
+    <label>Password</label>
+    <input type="text" id="roomPass" placeholder="Enter Room Password">
+
+    <button onclick="saveRoom()">Save Room</button>
+</div>
+
+<div class="box">
+    <h2>Registered Players</h2>
+    <table border="1" width="100%" style="color:white;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Game</th>
+                <th>Game ID</th>
+                <th>Mobile</th>
+            </tr>
+        </thead>
+        <tbody id="playerTable"></tbody>
+    </table>
+</div>
+
+<div class="box">
+    <h2>Joined Tournaments</h2>
+    <table border="1" width="100%" style="color:white;">
+        <thead>
+            <tr>
+                <th>Game</th>
+                <th>Join Time</th>
+            </tr>
+        </thead>
+        <tbody id="joinedTable"></tbody>
+    </table>
+</div>
+
+<script>
+// Save Room ID & Password
+function saveRoom() {
+    let game = document.getElementById("adminGame").value;
+    let id = document.getElementById("roomId").value;
+    let pass = document.getElementById("roomPass").value;
+
+    if(!id || !pass){
+        alert("Please fill Room ID and Password!");
+        return;
+    }
+
+    let rooms = JSON.parse(localStorage.getItem("rooms") || "{}");
+    rooms[game] = {roomID: id, password: pass};
+    localStorage.setItem("rooms", JSON.stringify(rooms));
+
+    alert(game + " Room Saved!");
+}
+
+// Display Registered Players
+function displayPlayers() {
+    let players = JSON.parse(localStorage.getItem("players") || "[]");
+    let table = document.getElementById("playerTable");
+    table.innerHTML = "";
+    players.forEach(p => {
+        let row = `<tr>
+            <td>${p.name}</td>
+            <td>${p.game}</td>
+            <td>${p.gameid}</td>
+            <td>${p.mobile}</td>
+        </tr>`;
+        table.innerHTML += row;
+    });
+}
+
+// Display Joined Tournaments
+function displayJoined() {
+    let joined = JSON.parse(localStorage.getItem("joined") || "[]");
+    let table = document.getElementById("joinedTable");
+    table.innerHTML = "";
+    joined.forEach(j => {
+        let row = `<tr>
+            <td>${j.game}</td>
+            <td>${j.time}</td>
+        </tr>`;
+        table.innerHTML += row;
+    });
+}
+
+// Call display on page load
+displayPlayers();
+displayJoined();
+</script>
+
+</body>
+</html>

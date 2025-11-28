@@ -1,0 +1,114 @@
+/* ===== GLOBAL STYLE ===== */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.header {
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* ===== BOX STYLE ===== */
+.box {
+    background: #162447;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.box:hover {
+    transform: scale(1.03);
+}
+
+.box h2 {
+    color: #e94560;
+    margin-bottom: 15px;
+}
+
+/* ===== INPUTS & SELECT ===== */
+input, select {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 10px #e94560;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255,65,108,0.5);
+}
+
+/* ===== TABLES ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #e94560;
+    text-align: center;
+}
+
+th {
+    background: #e94560;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background: #1f4068;
+}
+
+/* ===== BALANCE / WALLET ===== */
+.balance {
+    font-size: 22px;
+    font-weight: bold;
+    color: #f9c74f;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width: 500px){
+    .box {
+        width: 90%;
+        padding: 15px;
+    }
+
+    button, input, select {
+        width: 95%;
+    }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Wallet</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .box input {
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        .balance {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .add-btn {
+            background: green;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">Player Wallet</div>
+
+<div class="box">
+    <div class="balance">Balance: ₹<span id="balanceAmount">0</span></div>
+
+    <input type="number" id="addAmount" placeholder="Enter amount to add">
+    <button class="add-btn" onclick="addBalance()">Add Money</button>
+</div>
+
+<script>
+// Initialize balance
+let balance = JSON.parse(localStorage.getItem("balance") || "0");
+document.getElementById("balanceAmount").innerText = balance;
+
+// Add money function
+function addBalance() {
+    let amount = parseInt(document.getElementById("addAmount").value);
+    if(amount > 0){
+        balance += amount;
+        localStorage.setItem("balance", JSON.stringify(balance));
+        document.getElementById("balanceAmount").innerText = balance;
+        alert("₹" + amount + " added to your wallet!");
+        document.getElementById("addAmount").value = "";
+    } else {
+        alert("Enter a valid amount!");
+    }
+}
+</script>
+
+</body>
+</html>
+
+<script>
+// Initialize balance
+let balanc = JSON.parse(localStorage.getItem("balance") || "0");
+document.getElementById("balanceAmount").innerText = balance;
+
+// Function to add money
+function addBalance() {
+    let amount = parseInt(document.getElementById("addAmount").value);
+    if(amount > 0){
+        balance += amount;
+        localStorage.setItem("balance", JSON.stringify(balance));
+
+        // SAVE TRANSACTION
+        let transactions = JSON.parse(localStorage.getItem("transactions") || "[]");
+        transactions.push({type: "Added", amount: amount, time: new Date().toLocaleString()});
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+
+        // Update UI
+        document.getElementById("balanceAmount").innerText = balance;
+        displayTransactions();
+
+        document.getElementById("addAmount").value = "";
+        alert("₹" + amount + " added to your wallet!");
+    } else { alert("Enter a valid amount!"); }
+}
+
+// Display transaction history
+function displayTransactions() {
+    let transactions = JSON.parse(localStorage.getItem("transactions") || "[]");
+    let list = document.getElementById("transactionList");
+    list.innerHTML = "";
+    transactions.forEach(t => {
+        let li = document.createElement("li");
+        li.innerText = `${t.type} ₹${t.amount} at ${t.time}`;
+        list.appendChild(li);
+    });
+}
+
+// Run on page load
+displayTransactions();
+</script>

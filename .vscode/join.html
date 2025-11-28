@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Tournament</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">Tournament Join</div>
+
+<div class="box">
+    <label>Select Game</label>
+    <select id="gameSelect">
+        <option value="FF">Free Fire</option>
+        <option value="BGMI">BGMI</option>
+        <option value="Ludo">Ludo</option>
+    </select>
+
+    <button onclick="showTournament()">Show Tournament</button>
+</div>
+
+<div class="box" id="tournamentBox" style="display:none;">
+    <h2 id="gameName"></h2>
+    <p>Entry Fee: <span id="entryFee"></span></p>
+    <button onclick="joinTournament()">Join Tournament</button>
+</div>
+
+<script>
+function showTournament() {
+    let game = document.getElementById("gameSelect").value;
+    let gameName = document.getElementById("gameName");
+    let entryFee = document.getElementById("entryFee");
+    let box = document.getElementById("tournamentBox");
+
+    gameName.innerText = game + " Tournament";
+    
+    if(game === "FF") entryFee.innerText = "₹20";
+    else if(game === "BGMI") entryFee.innerText = "₹30";
+    else if(game === "Ludo") entryFee.innerText = "₹10";
+
+    box.style.display = "block";
+}
+
+function joinTournament() {
+    let game = document.getElementById("gameSelect").value;
+
+    // Fetch registered players
+    let players = JSON.parse(localStorage.getItem("players") || "[]");
+    
+    // Save joined tournament (simple)
+    let joined = JSON.parse(localStorage.getItem("joined") || "[]");
+    joined.push({game: game, time: new Date().toLocaleString()});
+    localStorage.setItem("joined", JSON.stringify(joined));
+
+    alert("You joined the " + game + " tournament!");
+}
+</script>
+
+</body>
+</html>
